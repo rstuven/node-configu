@@ -1,0 +1,12 @@
+{
+    "development": {
+        "a": "dev1"
+    },
+    "test": {
+        "a": "test1"
+    },
+    "production": {
+        "a": "prod1",
+        "b": "prod1"
+    }
+}
