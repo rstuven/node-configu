@@ -89,7 +89,7 @@ describe('Config', function(){
                     }
                 }
             });
-            config.on('done', function() {
+            config.on('ready', function() {
                 config.value.auth.username.should.equal('mengano');
                 config.value.db.username.should.equal('xkcd');
                 config.value.db.password.should.equal('correct horse battery staple');
