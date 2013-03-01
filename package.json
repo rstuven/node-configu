@@ -7,7 +7,8 @@
     "mocha": "1.8.1"
   },
   "dependencies": {
-    "prompt": "~0.2.9"
+    "promptly": "~0.1.0",
+    "async": "~0.2.5"
   },
   "scripts": {
     "test": "mocha -R spec"

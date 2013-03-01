@@ -2,7 +2,6 @@ var Config = require('..'),
     chai = require('chai'),
     should = chai.should(),
     helpers = require('./helpers'),
-    prompt = require('prompt'),
     DIRNAME = __dirname + '/../fixtures/config';
 
 
@@ -60,37 +59,43 @@ describe('Config', function(){
             }
         });
         it('should prompt when property name ends with $', function(done){
+            var config = new Config();
+
             var manualTest = false;
+            //var manualTest = true;
             if (manualTest) {
                 this.timeout(30000);
             } else {
-                prompt.started = false;
-                prompt.start({ stdin: helpers.stdin, stdout: helpers.stdout });
-                helpers.stdin.writeNextTick('mengano\n');
+                config.stdin = helpers.stdin;
+                config.stdout = helpers.stdout;
                 helpers.stdin.writeNextTick('\n');
+                helpers.stdin.writeNextTick('42\n');
+                helpers.stdin.writeNextTick('xkcd\n');
                 helpers.stdin.writeNextTick('correct horse battery staple\n');
             }
 
-            var config = new Config();
             config.add({
                 auth: {
                     username$: 'fulano'
                 },
                 db: {
+                    server$: {
+                        choices: ['41', '42', '43']
+                    },
                     username$: {
-                        description: 'Username',
-                        default: 'xkcd'
-                    }
-                    ,
+                        message: 'Username',
+                        pattern: '[a-z]+',
+                        description: 'At least one alphabetical lowercase character'
+                    },
                     password$: {
-                        description: 'Password',
-                        required: true,
-                        hidden: true
+                        type: 'password',
+                        message: 'Password'
                     }
                 }
             });
             config.on('ready', function() {
-                config.value.auth.username.should.equal('mengano');
+                config.value.auth.username.should.equal('fulano');
+                config.value.db.server.should.equal('42');
                 config.value.db.username.should.equal('xkcd');
                 config.value.db.password.should.equal('correct horse battery staple');
                 done();
