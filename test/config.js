@@ -1,7 +1,10 @@
 var Config = require('..'),
     chai = require('chai'),
     should = chai.should(),
+    helpers = require('./helpers'),
+    prompt = require('prompt'),
     DIRNAME = __dirname + '/../fixtures/config';
+
 
 describe('Config', function(){
 
@@ -48,6 +51,50 @@ describe('Config', function(){
             });
             config.value.a.should.equal('aaa');
             config.value.b.should.equal('bbb');
+        });
+        it('should accept null value', function(){
+            var config = new Config();
+            config.add({a: null});
+            if (config.value.a !== null) {
+                throw 'a is not null';
+            }
+        });
+        it('should prompt when property name ends with $', function(done){
+            var manualTest = false;
+            if (manualTest) {
+                this.timeout(30000);
+            } else {
+                prompt.started = false;
+                prompt.start({ stdin: helpers.stdin, stdout: helpers.stdout });
+                helpers.stdin.writeNextTick('mengano\n');
+                helpers.stdin.writeNextTick('\n');
+                helpers.stdin.writeNextTick('correct horse battery staple\n');
+            }
+
+            var config = new Config();
+            config.add({
+                auth: {
+                    username$: 'fulano'
+                },
+                db: {
+                    username$: {
+                        description: 'Username',
+                        default: 'xkcd'
+                    }
+                    ,
+                    password$: {
+                        description: 'Password',
+                        required: true,
+                        hidden: true
+                    }
+                }
+            });
+            config.on('done', function() {
+                config.value.auth.username.should.equal('mengano');
+                config.value.db.username.should.equal('xkcd');
+                config.value.db.password.should.equal('correct horse battery staple');
+                done();
+            });
         });
         it('should override objects using deep merging', function(){
             var config = new Config(DIRNAME);

@@ -1,12 +1,15 @@
 {
-    "name": "configu",
-    "version": "1.0.0",
-    "main": "lib/config.js",
-    "devDependencies": {
-       "chai": "1.5.0",
-       "mocha": "1.8.1"
-    },
-    "scripts": {
-        "test": "mocha -R spec"
-    }
+  "name": "configu",
+  "version": "1.0.0",
+  "main": "lib/config.js",
+  "devDependencies": {
+    "chai": "1.5.0",
+    "mocha": "1.8.1"
+  },
+  "dependencies": {
+    "prompt": "~0.2.9"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  }
 }
