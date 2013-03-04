@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "promptly": "~0.1.0",
-    "async": "~0.2.5"
+    "async": "~0.2.5",
+    "js-yaml": "~2.0.3"
   },
   "scripts": {
     "test": "mocha -R spec"
