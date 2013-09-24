@@ -357,6 +357,11 @@ describe('Config', function(){
             config.value.file1.a.should.equal(1);
             config.value.file1.b.should.equal(2);
         });
+        it('should add file1 using implicit prefix path', function(){
+            var config = new Config(DIRNAME);
+            config.add('file1.envs', {prefix: true});
+            config.value.file1.envs.test.a.should.equal('test1');
+        });
         it('should add file1 using named prefix', function(){
             var config = new Config(DIRNAME);
             config.add('file1', {prefix: 'prefix1'});
