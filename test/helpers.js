@@ -1,13 +1,12 @@
 /*
  * helpers.js: test helpers for the prompt tests.
  *
- * (C) 2010, Nodejitsu Inc.
+ * Based on code by Nodejitsu.
  *
  */
 
 var stream = require('stream'),
-    util = require('util'),
-    prompt = require('prompt');
+    util = require('util');
 
 var helpers = exports;
 
@@ -54,21 +53,3 @@ MockReadWriteStream.prototype.writeNextTick = function (msg) {
 helpers.stdin = new MockReadWriteStream();
 helpers.stdout = new MockReadWriteStream();
 helpers.stderr = new MockReadWriteStream();
-
-//
-// Because `read` uses a `process.nextTick` for reading from
-// stdin, it is necessary to write sequences of input with extra
-// `process.nextTick` calls
-//
-helpers.stdin.writeSequence = function (lines) {
-  if (!lines || !lines.length) {
-    return;
-  }
-
-  helpers.stdin.writeNextTick(lines.shift());
-  prompt.once('prompt', function () {
-    process.nextTick(function () {
-      helpers.stdin.writeSequence(lines);
-    });
-  });
-}
