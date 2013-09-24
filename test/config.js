@@ -363,6 +363,13 @@ describe('Config', function(){
             config.value.prefix1.a.should.equal(1);
             config.value.prefix1.b.should.equal(2);
         });
+        it('should add file1 using prefix path', function(){
+            var config = new Config(DIRNAME);
+            config.add('file1', {prefix: 'path.to.prefix1'});
+            config.value.path.to.prefix1.a.should.equal(1);
+            config.value.path.to.prefix1.b.should.equal(2);
+            config.value.path.to.prefix1.b.should.equal(2);
+        });
         it('should add file1 and file2 using different prefixes', function(){
             var config = new Config(DIRNAME);
             config.add('file1', {prefix: 'prefix1'});
