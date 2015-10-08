@@ -2,6 +2,7 @@
   "name": "configu",
   "version": "1.6.1",
   "main": "lib/config.js",
+  "description": "Hierarchically merged configuration",
   "devDependencies": {
     "chai": "^3.3.0",
     "mocha": "^2.3.3"
@@ -11,7 +12,24 @@
     "async": "^1.4.2",
     "js-yaml": "^3.4.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rstuven/node-configu.git"
+  },
+  "keywords": [
+    "configuration",
+    "environment"
+  ],
+  "author": "Ricardo Stuven <rstuven@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rstuven/node-configu/issues"
+  },
+  "homepage": "https://github.com/rstuven/node-configu#readme",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha"
   }
 }
