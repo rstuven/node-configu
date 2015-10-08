@@ -1,6 +1,6 @@
 {
   "name": "configu",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "main": "lib/config.js",
   "description": "Hierarchically merged configuration",
   "devDependencies": {
